@@ -1,0 +1,79 @@
+{
+  "version": 1,
+  "rowHeight": 120,
+  "viewport": {
+    "x": -136.375,
+    "y": -98.5,
+    "zoom": 2
+  },
+  "nodes": [
+    {
+      "id": "df96d49d-95bd-4e6a-9f25-be31a1cd2043",
+      "type": "person",
+      "position": {
+        "x": 346.5,
+        "y": 120
+      },
+      "data": {
+        "name": "New person",
+        "customFields": {}
+      }
+    },
+    {
+      "id": "9e32f515-269d-431e-994d-e24801e0c665",
+      "type": "person",
+      "position": {
+        "x": 668,
+        "y": 360
+      },
+      "data": {
+        "name": "New person",
+        "customFields": {}
+      }
+    },
+    {
+      "id": "48004ef6-bf62-40eb-b045-6b024d4d6dc5",
+      "type": "person",
+      "position": {
+        "x": 320.5,
+        "y": 360
+      },
+      "data": {
+        "name": "New person",
+        "customFields": {}
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "xy-edge__df96d49d-95bd-4e6a-9f25-be31a1cd2043-9e32f515-269d-431e-994d-e24801e0c665",
+      "type": "relation",
+      "source": "df96d49d-95bd-4e6a-9f25-be31a1cd2043",
+      "target": "9e32f515-269d-431e-994d-e24801e0c665",
+      "data": {
+        "label": "",
+        "style": "solid"
+      }
+    },
+    {
+      "id": "xy-edge__48004ef6-bf62-40eb-b045-6b024d4d6dc5-9e32f515-269d-431e-994d-e24801e0c665",
+      "type": "relation",
+      "source": "48004ef6-bf62-40eb-b045-6b024d4d6dc5",
+      "target": "9e32f515-269d-431e-994d-e24801e0c665",
+      "data": {
+        "label": "",
+        "style": "dashed"
+      }
+    },
+    {
+      "id": "xy-edge__9e32f515-269d-431e-994d-e24801e0c665-48004ef6-bf62-40eb-b045-6b024d4d6dc5",
+      "type": "relation",
+      "source": "9e32f515-269d-431e-994d-e24801e0c665",
+      "target": "48004ef6-bf62-40eb-b045-6b024d4d6dc5",
+      "data": {
+        "label": "",
+        "style": "solid"
+      }
+    }
+  ]
+}

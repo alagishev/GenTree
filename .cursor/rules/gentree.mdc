@@ -1,0 +1,14 @@
+---
+description: GenTree repo context — read maintenance guide before structural edits
+alwaysApply: true
+---
+
+# GenTree
+
+Before planning or implementing **non-trivial** changes (features, refactors, IPC, file format, exports), read **`docs/CURSOR_REPO_GUIDE.md`** and align with **`docs/architecture.md`**.
+
+## Rules
+
+- **Do not** claim or implement **draw.io / `.drawio` XML`** compatibility unless explicitly requested; the project uses **`.gentree.json`** (JSON v1).
+- Keep changes **scoped** to the task; match existing TypeScript, React, Zustand, and Tailwind patterns in the repo.
+- After touching graph state or persistence, verify **`src/lib/gentreeFile.ts`** and **`docs/file-format.md`** stay consistent if the schema changes.

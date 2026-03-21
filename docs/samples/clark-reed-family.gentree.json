@@ -1,0 +1,127 @@
+{
+  "version": 1,
+  "rowHeight": 120,
+  "viewport": {
+    "x": -20,
+    "y": -30,
+    "zoom": 0.9
+  },
+  "nodes": [
+    {
+      "id": "550e8400-e29b-41d4-a716-446655440101",
+      "type": "person",
+      "position": { "x": 80, "y": 0 },
+      "data": {
+        "name": "Ida Clark",
+        "birthDate": "1890-03-12",
+        "comment": "Born in Vermont.",
+        "customFields": { "generation": "G1" }
+      }
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-446655440102",
+      "type": "person",
+      "position": { "x": 520, "y": 0 },
+      "data": {
+        "name": "Henry Clark",
+        "birthDate": "1888-07-22",
+        "comment": "Railway clerk.",
+        "customFields": { "generation": "G1" }
+      }
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-446655440103",
+      "type": "person",
+      "position": { "x": 300, "y": 120 },
+      "data": {
+        "name": "Martha Clark",
+        "birthDate": "1915-11-05",
+        "comment": "Only child in this sample branch.",
+        "customFields": { "generation": "G2" }
+      }
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-446655440104",
+      "type": "person",
+      "position": { "x": 600, "y": 120 },
+      "data": {
+        "name": "James Reed",
+        "birthDate": "1913-01-30",
+        "customFields": { "generation": "G2" }
+      }
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-446655440105",
+      "type": "person",
+      "position": { "x": 450, "y": 240 },
+      "data": {
+        "name": "Laura Reed",
+        "birthDate": "1940-09-18",
+        "comment": "Teacher.",
+        "customFields": { "generation": "G3" }
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "e-ida-martha",
+      "type": "relation",
+      "source": "550e8400-e29b-41d4-a716-446655440101",
+      "target": "550e8400-e29b-41d4-a716-446655440103",
+      "data": {
+        "label": "parent",
+        "style": "solid",
+        "arrowAtSource": false,
+        "arrowAtTarget": true
+      }
+    },
+    {
+      "id": "e-henry-martha",
+      "type": "relation",
+      "source": "550e8400-e29b-41d4-a716-446655440102",
+      "target": "550e8400-e29b-41d4-a716-446655440103",
+      "data": {
+        "label": "parent",
+        "style": "solid",
+        "arrowAtSource": false,
+        "arrowAtTarget": true
+      }
+    },
+    {
+      "id": "e-martha-james",
+      "type": "relation",
+      "source": "550e8400-e29b-41d4-a716-446655440103",
+      "target": "550e8400-e29b-41d4-a716-446655440104",
+      "data": {
+        "label": "spouse",
+        "style": "dashed",
+        "arrowAtSource": false,
+        "arrowAtTarget": false
+      }
+    },
+    {
+      "id": "e-martha-laura",
+      "type": "relation",
+      "source": "550e8400-e29b-41d4-a716-446655440103",
+      "target": "550e8400-e29b-41d4-a716-446655440105",
+      "data": {
+        "label": "parent",
+        "style": "solid",
+        "arrowAtSource": false,
+        "arrowAtTarget": true
+      }
+    },
+    {
+      "id": "e-james-laura",
+      "type": "relation",
+      "source": "550e8400-e29b-41d4-a716-446655440104",
+      "target": "550e8400-e29b-41d4-a716-446655440105",
+      "data": {
+        "label": "parent",
+        "style": "solid",
+        "arrowAtSource": false,
+        "arrowAtTarget": true
+      }
+    }
+  ]
+}

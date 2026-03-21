@@ -1,0 +1,91 @@
+{
+  "name": "gentree",
+  "version": "0.1.0",
+  "license": "MIT",
+  "private": true,
+  "description": "Local genealogy-style graph editor (Electron desktop)",
+  "author": "GenTree",
+  "main": "dist-electron/main.cjs",
+  "scripts": {
+    "dev": "node scripts/run-dev.cjs",
+    "build:electron": "esbuild electron/main.ts --bundle --platform=node --format=cjs --outfile=dist-electron/main.cjs --external:electron && esbuild electron/preload.ts --bundle --platform=node --format=cjs --outfile=dist-electron/preload.cjs --external:electron",
+    "build": "vite build && npm run build:electron",
+    "dist": "npm run build && electron-builder",
+    "dist:win": "npm run build && electron-builder --win",
+    "dist:linux": "npm run build && electron-builder --linux",
+    "preview": "vite preview"
+  },
+  "build": {
+    "appId": "com.gentree.desktop",
+    "productName": "GenTree",
+    "copyright": "Copyright © GenTree",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "dist-electron/**/*",
+      "package.json"
+    ],
+    "win": {
+      "signAndEditExecutable": false,
+      "target": [
+        {
+          "target": "nsis",
+          "arch": ["x64"]
+        },
+        {
+          "target": "portable",
+          "arch": ["x64"]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "perMachine": false,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "artifactName": "${productName}-Setup-${version}.${ext}"
+    },
+    "portable": {
+      "artifactName": "${productName}-${version}-portable.${ext}"
+    },
+    "linux": {
+      "target": [
+        {
+          "target": "AppImage",
+          "arch": ["x64"]
+        }
+      ],
+      "category": "Office",
+      "maintainer": "gentree@local",
+      "artifactName": "${productName}-${version}-Linux.${ext}"
+    }
+  },
+  "dependencies": {
+    "@xyflow/react": "^12.10.1",
+    "html-to-image": "^1.11.13",
+    "nanoid": "^5.1.7",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "zustand": "^5.0.12"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "autoprefixer": "^10.4.27",
+    "concurrently": "^9.1.0",
+    "cross-env": "^7.0.3",
+    "electron": "^33.2.1",
+    "electron-builder": "^26.8.1",
+    "esbuild": "^0.24.0",
+    "postcss": "^8.5.8",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.3",
+    "wait-on": "^8.0.1"
+  }
+}
