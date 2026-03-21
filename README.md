@@ -2,7 +2,24 @@
 
 Local **genealogy-style graph** editor for desktop (Electron). Sketch people and relationships quickly: add nodes, connect them, snap rows, then export **PNG** or **SVG**. Data lives in a plain **JSON** project file (`.gentree.json`).
 
+**SEO / discoverability:** GenTree is a **simple tool for drawing genealogy trees** on the desktop—quick pedigree and family-tree sketches without a heavy genealogy database. Add people, **ancestor–descendant** links, and labels; export to PNG/SVG. Use it as a **lightweight genealogy graph editor** for kinship diagrams.
+
+**Keywords:** simple genealogy tree drawing tool, family tree drawing software, pedigree chart editor, local offline family tree, kinship diagram, ancestor descendant graph, family tree program, genealogy diagram editor, free open source MIT.
+
 **License:** [MIT](LICENSE).
+
+## How to run (prebuilt)
+
+Prebuilt binaries are published on [**GitHub Releases**](https://github.com/alagishev/GenTree/releases/latest) (that link always points at the latest release).
+
+1. On the release page, under **Assets**, download the file for your OS:
+   - **Windows:** `GenTree-Setup-*.exe` (installer) or `GenTree-*-portable.exe` (portable copy, no install).
+   - **Linux:** `GenTree-*-Linux.AppImage`.
+2. Run it:
+   - **Windows:** open the downloaded `.exe`. Code signing is not configured—SmartScreen may warn on first run; if needed choose **More info** → **Run anyway**.
+   - **Linux:** make the AppImage executable (`chmod +x GenTree-*-Linux.AppImage`) and run it; AppImage may require FUSE (see your distro’s notes).
+
+For development from source, see [Run from source](#run-from-source) below.
 
 ## Why it exists
 

@@ -9,6 +9,7 @@ Before planning or implementing **non-trivial** changes (features, refactors, IP
 
 ## Rules
 
+- **Documentation language:** All project documentation is **English only**—including the root **`README.md`**, **`CHANGELOG.md`**, everything under **`docs/`**, and repo guides such as **`AGENT_PLAYBOOK.md`** / **`AGENT_ONE_SHOT.md`**. Do not add Russian or other languages to user-facing docs; if you need search/discoverability phrases, express them in English (synonyms and keyword lines are fine).
 - **Do not** claim or implement **draw.io / `.drawio` XML`** compatibility unless explicitly requested; the project uses **`.gentree.json`** (JSON v1).
 - Keep changes **scoped** to the task; match existing TypeScript, React, Zustand, and Tailwind patterns in the repo.
 - After touching graph state or persistence, verify **`src/lib/gentreeFile.ts`** and **`docs/file-format.md`** stay consistent if the schema changes.
