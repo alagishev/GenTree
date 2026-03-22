@@ -1,8 +1,8 @@
 import {
   Background,
-  BackgroundVariant,
   ConnectionMode,
   Controls,
+  Panel,
   ReactFlow,
   ReactFlowProvider,
   useReactFlow,
@@ -13,6 +13,7 @@ import {
 } from '@xyflow/react'
 import '@xyflow/react/dist/style.css'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { ThemeProvider, useTheme } from '../contexts/ThemeContext'
 import { useProjectFileActions } from '../hooks/useProjectFileActions'
 import { isPersonDataVisuallyEmpty } from '../lib/personData'
 import { useGraphStore } from '../store/graphStore'
@@ -23,6 +24,7 @@ import { GraphContextMenu } from './GraphContextMenu'
 import { PersonEditorModal } from './PersonEditorModal'
 import { PersonNode } from './PersonNode'
 import { RelationEdge } from './RelationEdge'
+import { ThemeSwitcher } from './ThemeSwitcher'
 
 const nodeTypes: NodeTypes = { person: PersonNode }
 const edgeTypes: EdgeTypes = { relation: RelationEdge }
@@ -62,6 +64,7 @@ function GraphFlow() {
   const deleteEdge = useGraphStore((s) => s.deleteEdge)
   const pushUndoSnapshot = useGraphStore((s) => s.pushUndoSnapshot)
 
+  const { theme } = useTheme()
   const file = useProjectFileActions()
   const [rf, setRf] = useState<ReactFlowInstance | null>(null)
   const [personModalId, setPersonModalId] = useState<string | null>(null)
@@ -233,7 +236,14 @@ function GraphFlow() {
   const isValidConnection = useCallback((c: Connection) => c.source !== c.target, [])
 
   return (
-    <div ref={flowWrapRef} className="h-full w-full bg-slate-50">
+    <div
+      ref={flowWrapRef}
+      className="h-full w-full"
+      style={{
+        backgroundColor: theme.canvasBg,
+        ...(theme.vars as React.CSSProperties),
+      }}
+    >
       <ReactFlow
         nodes={nodes}
         edges={edgesForRf}
@@ -261,16 +271,19 @@ function GraphFlow() {
         }}
         fitView
         proOptions={{ hideAttribution: true }}
-        className="bg-slate-50"
+        style={{ backgroundColor: theme.canvasBg }}
       >
         <BindFlowInstance onReady={onReady} />
-        <Background variant={BackgroundVariant.Dots} gap={20} size={1} color="#cbd5e1" />
+        <Background variant={theme.bgVariant} gap={20} size={1} color={theme.bgPatternColor} />
         <Controls className="!shadow-md" />
-        <AppToolbar
-          file={file}
-          onOpenPersonEditor={(id) => setPersonModalId(id)}
-          onOpenEdgeEditor={(id) => setEdgeModalId(id)}
-        />
+        <Panel position="top-left" className="m-2 flex flex-col gap-2">
+          <AppToolbar
+            file={file}
+            onOpenPersonEditor={(id) => setPersonModalId(id)}
+            onOpenEdgeEditor={(id) => setEdgeModalId(id)}
+          />
+          <ThemeSwitcher />
+        </Panel>
       </ReactFlow>
 
       {ctxMenu?.kind === 'node' ? (
@@ -336,8 +349,10 @@ function GraphFlow() {
 
 export function GraphCanvas() {
   return (
-    <ReactFlowProvider>
-      <GraphFlow />
-    </ReactFlowProvider>
+    <ThemeProvider>
+      <ReactFlowProvider>
+        <GraphFlow />
+      </ReactFlowProvider>
+    </ThemeProvider>
   )
 }

@@ -1,4 +1,3 @@
-import { Panel } from '@xyflow/react'
 import type { ProjectFileActions } from '../hooks/useProjectFileActions'
 import { useGraphStore } from '../store/graphStore'
 
@@ -16,7 +15,7 @@ export function AppToolbar({
   const selectedEdgeId = useGraphStore((s) => s.selectedEdgeId)
 
   return (
-    <Panel position="top-left" className="m-2 flex flex-wrap gap-2 rounded-lg border border-slate-200 bg-white/95 p-2 shadow-sm backdrop-blur-sm">
+    <div className="flex flex-wrap gap-2 rounded-lg border border-slate-200 bg-white/95 p-2 shadow-sm backdrop-blur-sm">
       <span className="mr-2 self-center text-sm font-semibold text-slate-800">GenTree</span>
       <button
         type="button"
@@ -90,6 +89,6 @@ export function AppToolbar({
       ) : (
         <span className="self-center text-xs text-slate-400">Saved</span>
       )}
-    </Panel>
+    </div>
   )
 }

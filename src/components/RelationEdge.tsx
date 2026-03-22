@@ -5,6 +5,7 @@ import {
   type EdgeProps,
 } from '@xyflow/react'
 import { useMemo } from 'react'
+import { useTheme } from '../contexts/ThemeContext'
 import type { RelationEdgeData } from '../types/graph'
 
 function strokeProps(style: RelationEdgeData['style']): {
@@ -85,9 +86,10 @@ export function RelationEdge({
 }: EdgeProps<RelationEdgeData>) {
   const fanSourceY = useOutgoingFanSourceOffset(id)
   const fanTargetY = useIncomingFanTargetOffset(id)
+  const { theme } = useTheme()
   const styleKind = data?.style ?? 'solid'
   const { strokeDasharray, opacity } = strokeProps(styleKind)
-  const stroke = selected ? '#0ea5e9' : '#64748b'
+  const stroke = selected ? theme.vars['--gt-edge-selected']! : theme.vars['--gt-edge']!
   const [edgePath, labelX, labelY] = getBezierPath({
     sourceX,
     sourceY: sourceY + fanSourceY,
@@ -165,11 +167,11 @@ export function RelationEdge({
               pointerEvents: 'all',
               fontSize: 11,
               fontWeight: 600,
-              color: '#334155',
-              background: 'rgba(255,255,255,0.9)',
+              color: theme.vars['--gt-edge-label-text'],
+              background: theme.vars['--gt-edge-label-bg'],
               padding: '2px 6px',
               borderRadius: 4,
-              border: '1px solid #e2e8f0',
+              border: `1px solid ${theme.vars['--gt-edge-label-border']}`,
             }}
             className="nodrag nopan"
           >
