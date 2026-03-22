@@ -2,7 +2,7 @@
 
 Planned directions for GenTree. Nothing here is tied to a release date; use it for prioritization and forks.
 
-## Theming and visual presets
+## Theming and visual presets (implemented)
 
 - **Canvas background** — solid colors, gradients, subtle patterns, optional grid aligned with row snapping.
 - **Per-card backgrounds** — texture or color behind each person node (independent of global theme).
@@ -15,7 +15,7 @@ Planned directions for GenTree. Nothing here is tied to a release date; use it f
 - **Print templates** — fixed layouts (poster tree, book spread) instead of only a screen screenshot.
 - **Type scale and line length** — controls for names and body text so output survives real presses and large paper sizes.
 
-## AI integration
+## AI integration (implemented)
 
 ### Generate graph from text
 

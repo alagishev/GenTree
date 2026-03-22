@@ -5,10 +5,12 @@ export function AppToolbar({
   file,
   onOpenPersonEditor,
   onOpenEdgeEditor,
+  onOpenAiAssistant,
 }: {
   file: ProjectFileActions
   onOpenPersonEditor: (nodeId: string) => void
   onOpenEdgeEditor: (edgeId: string) => void
+  onOpenAiAssistant: () => void
 }) {
   const dirty = useGraphStore((s) => s.dirty)
   const selectedNodeId = useGraphStore((s) => s.selectedNodeId)
@@ -83,6 +85,13 @@ export function AppToolbar({
         onClick={() => void file.doExportSvg()}
       >
         Export SVG
+      </button>
+      <button
+        type="button"
+        className="rounded border border-violet-300 bg-violet-50 px-2 py-1 text-xs font-medium text-violet-700 hover:bg-violet-100"
+        onClick={onOpenAiAssistant}
+      >
+        ✨ AI
       </button>
       {dirty ? (
         <span className="self-center text-xs text-amber-700">● Unsaved</span>

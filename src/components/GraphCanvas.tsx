@@ -17,6 +17,7 @@ import { ThemeProvider, useTheme } from '../contexts/ThemeContext'
 import { useProjectFileActions } from '../hooks/useProjectFileActions'
 import { isPersonDataVisuallyEmpty } from '../lib/personData'
 import { useGraphStore } from '../store/graphStore'
+import { AiAssistantModal } from './AiAssistantModal'
 import { AppToolbar } from './AppToolbar'
 import { ConfirmModal } from './ConfirmModal'
 import { EdgeEditorModal } from './EdgeEditorModal'
@@ -71,6 +72,8 @@ function GraphFlow() {
   const [edgeModalId, setEdgeModalId] = useState<string | null>(null)
   const [ctxMenu, setCtxMenu] = useState<CtxMenu | null>(null)
   const [confirmDeletePersonId, setConfirmDeletePersonId] = useState<string | null>(null)
+  const [aiModalOpen, setAiModalOpen] = useState(false)
+  const [aiApiKey, setAiApiKey] = useState('')
 
   const edgesForRf = useMemo(
     () => edges.map((e) => ({ ...e, selected: e.id === selectedEdgeId })),
@@ -281,6 +284,7 @@ function GraphFlow() {
             file={file}
             onOpenPersonEditor={(id) => setPersonModalId(id)}
             onOpenEdgeEditor={(id) => setEdgeModalId(id)}
+            onOpenAiAssistant={() => setAiModalOpen(true)}
           />
           <ThemeSwitcher />
         </Panel>
@@ -341,6 +345,14 @@ function GraphFlow() {
             deletePerson(confirmDeletePersonId)
             setConfirmDeletePersonId(null)
           }}
+        />
+      ) : null}
+
+      {aiModalOpen ? (
+        <AiAssistantModal
+          apiKey={aiApiKey}
+          onApiKeyChange={setAiApiKey}
+          onClose={() => setAiModalOpen(false)}
         />
       ) : null}
     </div>

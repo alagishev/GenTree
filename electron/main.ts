@@ -1,6 +1,21 @@
 import { app, BrowserWindow, Menu, dialog, ipcMain, shell } from 'electron'
+import { existsSync } from 'node:fs'
 import path from 'node:path'
 import fs from 'node:fs/promises'
+
+/** Window/taskbar icon (same asset as web favicon / electron-builder app icon). */
+function windowIconPath(): string | undefined {
+  if (app.isPackaged) {
+    const packaged = path.join(process.resourcesPath, 'icon.png')
+    if (existsSync(packaged)) return packaged
+    return undefined
+  }
+  const fromBuild = path.join(__dirname, '..', 'build', 'icon.png')
+  if (existsSync(fromBuild)) return fromBuild
+  const fromPublic = path.join(__dirname, '..', 'public', 'favicon.png')
+  if (existsSync(fromPublic)) return fromPublic
+  return undefined
+}
 
 const isDev = process.env.NODE_ENV === 'development'
 /** Full dev server URL (set by scripts/run-dev.cjs). Fallback for manual `electron .` only. */
@@ -12,9 +27,11 @@ function sendMenu(win: BrowserWindow | null, action: string): void {
 }
 
 function createWindow(): BrowserWindow {
+  const icon = windowIconPath()
   const win = new BrowserWindow({
     width: 960,
     height: 720,
+    ...(icon ? { icon } : {}),
     webPreferences: {
       preload: path.join(__dirname, 'preload.cjs'),
       contextIsolation: true,

@@ -20,6 +20,7 @@
     "appId": "com.gentree.desktop",
     "productName": "GenTree",
     "copyright": "Copyright © GenTree",
+    "icon": "build/icon.png",
     "directories": {
       "output": "release"
     },
@@ -27,6 +28,12 @@
       "dist/**/*",
       "dist-electron/**/*",
       "package.json"
+    ],
+    "extraResources": [
+      {
+        "from": "build/icon.png",
+        "to": "icon.png"
+      }
     ],
     "win": {
       "signAndEditExecutable": false,
