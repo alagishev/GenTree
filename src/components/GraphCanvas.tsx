@@ -1,6 +1,7 @@
 import {
   Background,
   BackgroundVariant,
+  ConnectionMode,
   Controls,
   ReactFlow,
   ReactFlowProvider,
@@ -253,6 +254,7 @@ function GraphFlow() {
         onEdgeContextMenu={onEdgeContextMenu}
         onEdgeDoubleClick={onEdgeDoubleClick}
         isValidConnection={isValidConnection}
+        connectionMode={ConnectionMode.Loose}
         onMoveEnd={(_, vp) => {
           setViewport(vp)
           markDirty()

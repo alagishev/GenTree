@@ -1,6 +1,7 @@
 import { useReactFlow } from '@xyflow/react'
 import { toPng, toSvg } from 'html-to-image'
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useMemo, useRef, useState } from 'react'
+import { createBrowserGentreeFiles } from '../lib/browserProjectFiles'
 import { parseGentreeJson, serializeGentree } from '../lib/gentreeFile'
 import { useGraphStore } from '../store/graphStore'
 
@@ -48,6 +49,11 @@ export function useProjectFileActions() {
   const markSaved = useGraphStore((s) => s.markSaved)
 
   const [exporting, setExporting] = useState(false)
+  const browserFileHandleRef = useRef<FileSystemFileHandle | null>(null)
+  const files = useMemo(() => {
+    if (typeof window !== 'undefined' && window.gentreeFiles) return window.gentreeFiles
+    return createBrowserGentreeFiles(browserFileHandleRef)
+  }, [])
 
   const snapshotPayload = useCallback(() => {
     const vp = rf.getViewport()
@@ -64,12 +70,12 @@ export function useProjectFileActions() {
       const ok = window.confirm('You have unsaved changes. Create a new file?')
       if (!ok) return
     }
+    browserFileHandleRef.current = null
     newEmptyGraph()
   }, [dirty, newEmptyGraph])
 
   const doOpen = useCallback(async () => {
-    if (!window.gentreeFiles) return
-    const res = await window.gentreeFiles.open()
+    const res = await files.open()
     if (res.canceled || !('content' in res)) return
     try {
       const data = parseGentreeJson(res.content)
@@ -78,34 +84,31 @@ export function useProjectFileActions() {
     } catch (e) {
       window.alert(e instanceof Error ? e.message : 'Could not open the file.')
     }
-  }, [loadProject, markSaved])
+  }, [files, loadProject, markSaved])
 
   const doSave = useCallback(async () => {
-    if (!window.gentreeFiles) return
     const payload = snapshotPayload()
     const text = serializeGentree(payload)
     if (currentFilePath) {
-      const res = await window.gentreeFiles.save({ content: text, filePath: currentFilePath })
+      const res = await files.save({ content: text, filePath: currentFilePath })
       if (!res.canceled && 'ok' in res && res.ok) markSaved(currentFilePath)
     } else {
-      const res = await window.gentreeFiles.saveAs(text)
+      const res = await files.saveAs(text)
       if (!res.canceled && 'filePath' in res) markSaved(res.filePath)
     }
-  }, [currentFilePath, markSaved, snapshotPayload])
+  }, [currentFilePath, files, markSaved, snapshotPayload])
 
   const doSaveAs = useCallback(async () => {
-    if (!window.gentreeFiles) return
     const text = serializeGentree(snapshotPayload())
-    const res = await window.gentreeFiles.saveAs(text)
+    const res = await files.saveAs(text)
     if (!res.canceled && 'filePath' in res) markSaved(res.filePath)
-  }, [markSaved, snapshotPayload])
+  }, [files, markSaved, snapshotPayload])
 
   const captureTarget = useCallback(() => {
     return document.querySelector('.react-flow__viewport') as HTMLElement | null
   }, [])
 
   const doExportPng = useCallback(async () => {
-    if (!window.gentreeFiles) return
     const target = captureTarget()
     if (!target) {
       window.alert('Canvas not found for export.')
@@ -120,7 +123,7 @@ export function useProjectFileActions() {
           backgroundColor: '#f8fafc',
         })
         const base64 = dataUrl.replace(/^data:image\/png;base64,/, '')
-        const res = await window.gentreeFiles.saveExport({
+        const res = await files.saveExport({
           base64,
           defaultName: 'gentree-export.png',
         })
@@ -132,10 +135,9 @@ export function useProjectFileActions() {
     } finally {
       setExporting(false)
     }
-  }, [captureTarget, rf])
+  }, [captureTarget, files, rf])
 
   const doExportSvg = useCallback(async () => {
-    if (!window.gentreeFiles) return
     const target = captureTarget()
     if (!target) {
       window.alert('Canvas not found for export.')
@@ -146,7 +148,7 @@ export function useProjectFileActions() {
       await withExportView(rf, async () => {
         const dataUrl = await toSvg(target, { cacheBust: true, backgroundColor: '#f8fafc' })
         const svgText = dataUrlToSvgText(dataUrl)
-        const res = await window.gentreeFiles.saveExportText({
+        const res = await files.saveExportText({
           text: svgText,
           defaultName: 'gentree-export.svg',
         })
@@ -158,7 +160,7 @@ export function useProjectFileActions() {
     } finally {
       setExporting(false)
     }
-  }, [captureTarget, rf])
+  }, [captureTarget, files, rf])
 
   const fitAll = useCallback(() => {
     rf.fitView({ padding: 0.2, duration: 300 })

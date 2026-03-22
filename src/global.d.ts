@@ -11,7 +11,29 @@ type GentreeSaveAsResult = { canceled: true } | { canceled: false; filePath: str
 type GentreeExportResult = { canceled: true } | { canceled: false; ok: true }
 
 declare global {
+  /** Subset of the File System Access API for static typing (Chromium). */
+  interface FilePickerAcceptType {
+    description: string
+    accept: Record<string, string[]>
+  }
+
+  interface FileSystemFileHandle {
+    queryPermission?(descriptor?: FileSystemHandlePermissionDescriptor): Promise<PermissionState>
+    requestPermission?(descriptor?: FileSystemHandlePermissionDescriptor): Promise<PermissionState>
+  }
+
   interface Window {
+    showOpenFilePicker?: (options?: {
+      types?: FilePickerAcceptType[]
+      excludeAcceptAllOption?: boolean
+      multiple?: boolean
+    }) => Promise<FileSystemFileHandle[]>
+
+    showSaveFilePicker?: (options?: {
+      suggestedName?: string
+      types?: FilePickerAcceptType[]
+    }) => Promise<FileSystemFileHandle>
+
     /** Present in Electron; absent in plain Vite preview. */
     gentreeFiles?: {
       open: () => Promise<GentreeOpenResult>

@@ -1,5 +1,4 @@
 import {
-  BaseEdge,
   EdgeLabelRenderer,
   getBezierPath,
   useStore,
@@ -71,6 +70,8 @@ function useOutgoingFanSourceOffset(edgeId: string): number {
   return useStore(selector)
 }
 
+const EDGE_INTERACTION_WIDTH = 20
+
 export function RelationEdge({
   id,
   sourceX,
@@ -100,11 +101,18 @@ export function RelationEdge({
   const arrowAtTarget = data?.arrowAtTarget === true
   const mid = markerSafeId(id)
 
+  const pathStyle = {
+    stroke,
+    strokeWidth: selected ? 2.5 : 1.75,
+    strokeDasharray,
+    opacity,
+  } as const
+
   return (
     <>
-      {(arrowAtSource || arrowAtTarget) && (
+      {(arrowAtSource || arrowAtTarget) ? (
         <defs>
-          {arrowAtTarget ? (
+          {arrowAtTarget && (
             <marker
               id={`gentree-m-end-${mid}`}
               markerUnits="userSpaceOnUse"
@@ -116,8 +124,8 @@ export function RelationEdge({
             >
               <path d="M 0 0 L 10 5 L 0 10 z" fill={stroke} />
             </marker>
-          ) : null}
-          {arrowAtSource ? (
+          )}
+          {arrowAtSource && (
             <marker
               id={`gentree-m-start-${mid}`}
               markerUnits="userSpaceOnUse"
@@ -127,22 +135,26 @@ export function RelationEdge({
               refY="5"
               orient="auto-start-reverse"
             >
-              <path d="M 10 0 L 0 5 L 10 10 z" fill={stroke} />
+              <path d="M 0 0 L 10 5 L 0 10 z" fill={stroke} />
             </marker>
-          ) : null}
+          )}
         </defs>
-      )}
-      <BaseEdge
+      ) : null}
+      <path
         id={id}
-        path={edgePath}
+        d={edgePath}
+        fill="none"
+        className="react-flow__edge-path"
         markerEnd={arrowAtTarget ? `url(#gentree-m-end-${mid})` : undefined}
         markerStart={arrowAtSource ? `url(#gentree-m-start-${mid})` : undefined}
-        style={{
-          stroke,
-          strokeWidth: selected ? 2.5 : 1.75,
-          strokeDasharray,
-          opacity,
-        }}
+        style={pathStyle}
+      />
+      <path
+        d={edgePath}
+        fill="none"
+        strokeOpacity={0}
+        strokeWidth={EDGE_INTERACTION_WIDTH}
+        className="react-flow__edge-interaction"
       />
       {label ? (
         <EdgeLabelRenderer>

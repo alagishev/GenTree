@@ -1,4 +1,4 @@
-import { app, BrowserWindow, Menu, dialog, ipcMain } from 'electron'
+import { app, BrowserWindow, Menu, dialog, ipcMain, shell } from 'electron'
 import path from 'node:path'
 import fs from 'node:fs/promises'
 
@@ -62,6 +62,14 @@ function createWindow(): BrowserWindow {
   ]
 
   Menu.setApplicationMenu(Menu.buildFromTemplate(template))
+
+  win.webContents.setWindowOpenHandler(({ url }) => {
+    if (url.startsWith('http:') || url.startsWith('https:')) {
+      void shell.openExternal(url)
+      return { action: 'deny' }
+    }
+    return { action: 'allow' }
+  })
 
   if (isDev) {
     void win.loadURL(devServerUrl)

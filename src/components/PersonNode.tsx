@@ -14,6 +14,10 @@ function initials(name: string): string {
   return (parts[0]![0]! + parts[parts.length - 1]![0]!).toUpperCase()
 }
 
+const handleClass =
+  '!h-3 !w-3 !border-2 !border-white !bg-slate-400'
+
+/** Four dots; each has target + source at the same spot (source on top) so any dot can start or end a link (with ConnectionMode.Loose). */
 export function PersonNode({ data, selected }: NodeProps<PersonNodeData>) {
   const commentPreview =
     data.comment && data.comment.length > 80
@@ -27,18 +31,32 @@ export function PersonNode({ data, selected }: NodeProps<PersonNodeData>) {
       }`}
     >
       <Handle
-        id="in"
+        id="lt-t"
         type="target"
         position={Position.Left}
         style={{ top: '32%' }}
-        className="!h-3 !w-3 !border-2 !border-white !bg-slate-400"
+        className={handleClass}
       />
       <Handle
-        id="outL"
+        id="lt-s"
+        type="source"
+        position={Position.Left}
+        style={{ top: '32%' }}
+        className={handleClass}
+      />
+      <Handle
+        id="lb-t"
+        type="target"
+        position={Position.Left}
+        style={{ top: '68%' }}
+        className={handleClass}
+      />
+      <Handle
+        id="lb-s"
         type="source"
         position={Position.Left}
         style={{ top: '68%' }}
-        className="!h-3 !w-3 !border-2 !border-white !bg-slate-400"
+        className={handleClass}
       />
       <div className="flex gap-3">
         <div className="flex-shrink-0">
@@ -65,18 +83,32 @@ export function PersonNode({ data, selected }: NodeProps<PersonNodeData>) {
         </div>
       </div>
       <Handle
-        id="out"
+        id="rt-t"
+        type="target"
+        position={Position.Right}
+        style={{ top: '32%' }}
+        className={handleClass}
+      />
+      <Handle
+        id="rt-s"
         type="source"
         position={Position.Right}
         style={{ top: '32%' }}
-        className="!h-3 !w-3 !border-2 !border-white !bg-slate-400"
+        className={handleClass}
       />
       <Handle
-        id="inR"
+        id="rb-t"
         type="target"
         position={Position.Right}
         style={{ top: '68%' }}
-        className="!h-3 !w-3 !border-2 !border-white !bg-slate-400"
+        className={handleClass}
+      />
+      <Handle
+        id="rb-s"
+        type="source"
+        position={Position.Right}
+        style={{ top: '68%' }}
+        className={handleClass}
       />
     </div>
   )

@@ -10,6 +10,8 @@ Local **genealogy-style graph** editor for desktop (Electron). Sketch people and
 
 **License:** [MIT](LICENSE).
 
+**Try online:** the static web build is at [zeebra.top/gen-tree](https://zeebra.top/gen-tree). Open/Save/Export use the browser’s file picker where supported (Chromium); otherwise files are chosen or downloaded via a regular dialog.
+
 ## How to run (prebuilt)
 
 Prebuilt binaries are published on [**GitHub Releases**](https://github.com/alagishev/GenTree/releases/latest) (that link always points at the latest release).
@@ -63,6 +65,8 @@ npm run build
 ```
 
 Outputs: renderer in `dist/`, Electron bundles in `dist-electron/`.
+
+**Static site only** (e.g. nginx): use `npm run build:web` so Cloudflare Web Analytics is injected into `dist/index.html`. Set `VITE_CF_BEACON_TOKEN` to your beacon token (env or `.env.production.local`). Plain `npm run build` does **not** set `VITE_CF_WEB`, so Electron builds stay without the analytics script.
 
 ### Windows (NSIS + portable)
 
