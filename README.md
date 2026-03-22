@@ -2,6 +2,8 @@
 
 Local **genealogy-style graph** editor for desktop (Electron). Sketch people and relationships quickly: add nodes, connect them, snap rows, then export **PNG** or **SVG**. Data lives in a plain **JSON** project file (`.gentree.json`).
 
+![GenTree main window: sample family tree with people cards, parent edges, and toolbar](docs/gentree-screenshot.png)
+
 **SEO / discoverability:** GenTree is a **simple tool for drawing genealogy trees** on the desktop—quick pedigree and family-tree sketches without a heavy genealogy database. Add people, **ancestor–descendant** links, and labels; export to PNG/SVG. Use it as a **lightweight genealogy graph editor** for kinship diagrams.
 
 **Keywords:** simple genealogy tree drawing tool, family tree drawing software, pedigree chart editor, local offline family tree, kinship diagram, ancestor descendant graph, family tree program, genealogy diagram editor, free open source MIT.
@@ -25,7 +27,7 @@ For development from source, see [Run from source](#run-from-source) below.
 
 Full genealogy suites are often heavy; generic diagram tools are flexible but not tuned for quick family trees. GenTree targets **fast prototyping**: capture everyone you know, then rearrange and label the graph without fighting the tool.
 
-So, I've decided to generate a tool for my own. It was en experment - how easy is to create very special tool for my own short-living requirements instead of using existing heavy tools or to use another more generic tool like draw.io. This repo is an answer. It took 0.5md
+So, I've decided to generate a tool for my own. It was en experiment - how easy is to create very special tool for my own short-living requirements instead of using existing heavy tools or to use another more generic tool like draw.io. This repo is an answer. It took 0.5md
 
 The workflow is **similar to draw.io desktop** (local files, File menu, image export), but the **file format is GenTree’s own JSON**, not draw.io XML. See [docs/analogs-and-scope.md](docs/analogs-and-scope.md).
 
